@@ -1,0 +1,25 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: helm-apps-of-apps
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/cjescobar37/argocd  # URL del repositorio del Helm chart
+    targetRevision: main  # Rama o etiqueta del Helm chart
+    path: pruebaApp  # Ruta al directorio del Helm chart si es necesario
+    helm:
+      valueFiles:
+        - values.yaml  # Archivo de valores personalizados para el Helm chart
+  destination:
+    server: https://kubernetes.default.svc  # URL del servidor Kubernetes
+    namespace: default  # Namespace donde se desplegará la aplicación
+  syncPolicy:
+    automated:
+      prune: true  # Eliminar recursos que ya no están en el repositorio
+      selfHeal: true  # Habilitar auto curación
+    syncOptions:
+      - CreateNamespace=true  # Crear el namespace si no existe
+      - ApplyOutOfSyncOnly=true  # Aplicar solo cuando está fuera de sincronización
+
