@@ -7,8 +7,8 @@ spec:
   project: default
   source:
     repoURL: https://github.com/cjescobar37/argocd  # URL del repositorio del Helm chart
-    targetRevision: main  # tag o referencia del Helm chart
-    path: pruebaApp  # ruta al directorio del Helm chart si es necesario
+    targetRevision: main  # Rama o etiqueta del Helm chart
+    path: pruebaApp  # Ruta al directorio del Helm chart si es necesario
     helm:
       valueFiles:
         - values.yaml  # Archivo de valores personalizados para el Helm chart
@@ -18,8 +18,8 @@ spec:
   syncPolicy:
     automated:
       prune: true  # Eliminar recursos que ya no están en el repositorio
-    selfHeal: true  # Habilitar auto curación
+      selfHeal: true  # Habilitar auto curación
     syncOptions:
       - CreateNamespace=true  # Crear el namespace si no existe
-  autoSync:
-    enabled: true  # Habilitar autosincronización continua
+      - ApplyOutOfSyncOnly=true  # Aplicar solo cuando está fuera de sincronización
+
