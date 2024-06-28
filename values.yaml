@@ -1,0 +1,34 @@
+replicaCount: 3
+
+app:
+  name: pruebaApp
+
+image:
+  repository: cescobar37/rick
+  tag: v1
+
+service:
+  type: ClusterIP
+  port: 80
+
+env:
+  ENV_VAR: "value"
+
+serviceAccount:
+  create: true
+  name: ""
+
+ingress:
+  enabled: false
+  annotations: {}
+  hosts:
+    - host: chart-example.local
+      paths: []
+  tls: []
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 80
+  
